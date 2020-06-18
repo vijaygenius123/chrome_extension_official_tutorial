@@ -38,3 +38,39 @@ chrome.runtime.onInstalled.addListener(function () {
     });
 });
 ```
+
+# Step 3
+
+Create a simple html for the popup 
+
+```html
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        body {
+            min-height: 200px;
+            min-width: 200px;
+        }
+
+        button {
+            outline: none;
+        }
+    </style>
+</head>
+
+<body>
+    <button id="changeColor">Change Color</button>
+</body>
+
+</html>
+```
+
+add below configuration to manifest file so the popup opens when clicked on extension icon
+
+```json
+    "browser_action": {
+        "default_popup": "popup.html"
+    },
+```

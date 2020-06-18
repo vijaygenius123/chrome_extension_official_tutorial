@@ -74,3 +74,20 @@ add below configuration to manifest file so the popup opens when clicked on exte
         "default_popup": "popup.html"
     },
 ```
+
+# Step 4 
+
+Add the below lines  inside the onInstalled listener function 
+```js
+    chrome.declarativeContent.onPageChanged.removeRules(undefined, function () {
+        chrome.declarativeContent.onPageChanged.addRules([{
+            conditions: [new chrome.declarativeContent.PageStateMatcher({
+                pageUrl: { hostEquals: 'developer.chrome.com' },
+            })
+            ],
+            actions: [new chrome.declarativeContent.ShowPageAction()]
+        }]);
+    });
+```
+
+Also open permission `declarativeContent` to permissions in the manifest file

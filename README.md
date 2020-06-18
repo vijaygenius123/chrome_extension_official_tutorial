@@ -91,3 +91,34 @@ Add the below lines  inside the onInstalled listener function
 ```
 
 Also open permission `declarativeContent` to permissions in the manifest file
+
+
+# Step 5 
+
+Add `activeTab` to permissions list in the manifest file
+
+create a file called `popup.js` with content below
+
+```js
+let changeColor = document.getElementById('changeColor');
+
+chrome.storage.sync.get('color', function (data) {
+    changeColor.style.backgroundColor = data.color;
+    changeColor.setAttribute('value', data.color);
+
+});
+
+changeColor.onclick = function (element) {
+    let color = element.target.value;
+    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+        chrome.tabs.executeScript(
+            tabs[0].id,
+            { code: 'document.body.style.backgroundColor = "' + color + '";' });
+    });
+};
+```
+
+add the created `popup.js` as a script tag in `popup.html`
+```html
+<script src="popup.js"></script>
+```
